@@ -1,0 +1,40 @@
+# hidden/temp files
+.DS_Store
+*.swp
+*~.nib
+*.bak
+
+# Build dir
+build/
+DerivedData/
+
+# Xcode project files except for the project file
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+
+# NetBenas
+nbproject/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Windows image thumbnail file
+Thumbs.db
+
+# User-specific project settings
+*.mode1v3
+*.mode2v3
+
+#docker-volums
+volumes/
+
+#vendor files
+src/vendor
+
+#hidden cache
+cache/
+
+#PHPStorm
+.idea/

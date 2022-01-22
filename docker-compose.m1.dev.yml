@@ -1,0 +1,61 @@
+version: '2'
+
+services:
+  # nginx-proxy
+  proxy:
+    image: nginxproxy/nginx-proxy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./volumes/server/:/etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+    privileged: true
+
+  mysql:
+    image: mariadb:10.5.8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: preapp_dev
+      MYSQL_PASSWORD: Predevapp_1
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+      - ./volumes/mysql:/var/log/mysql
+
+  app:
+    build: docker/bubo_sales_tracker
+    links:
+      - "mysql:mysql"
+    expose:
+      - "80"
+    volumes:
+      - ./src/bubo_sales_tracker/:/var/www/bubo_sales_tracker
+    environment:
+      ENVIRONMENT: 0
+      TZ: Japan
+      VIRTUAL_HOST: app.*
+    working_dir: /var/www/bubo_sales_tracker
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=preapp_dev
+      - PMA_PASSWORD=Predevapp_1
+    links:
+      - mysql
+    ports:
+      - "8836:80"
+    volumes:
+      - /sessions
+
+networks:
+  default:
+    external:
+      name: preappdevnet_test
