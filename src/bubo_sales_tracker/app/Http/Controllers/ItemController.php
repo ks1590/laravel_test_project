@@ -26,12 +26,14 @@ class ItemController extends Controller
                 $shops = Shop::find($current_shop)->toArray();
             }
 
-            $smaregi = new SmaregiController;
-            $store_stock_list = $smaregi->fetchStockByStore($shops);
-            $product_list = $smaregi->fetchProductsByCategory();
-            $stocks = $smaregi->mergeStoreStockAndProductCode($store_stock_list, $product_list);
+//            $smaregi = new SmaregiController;
+//            $store_stock_list = $smaregi->fetchStockByStore($shops);
+//            $product_list = $smaregi->fetchProductsByCategory();
+//            $stocks = $smaregi->mergeStoreStockAndProductCode($store_stock_list, $product_list);
+            $stocks = 0;
 
-            $items = Item::orderBy('category_id', 'asc')->orderBy('display_name', 'asc')->get();
+//            $items = Item::orderBy('category_id', 'asc')->orderBy('display_name', 'asc')->get();
+            $items = Shop::first()->items;
 
             return view('item.index', ['items' => $items, 'shops' => $shops, 'stocks' => $stocks]);
         } catch (\Exception $e) {
