@@ -10,6 +10,12 @@ use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
+
+    public function __construct(Item $item)
+    {
+        $this->item = $item;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +56,8 @@ class ItemController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('item.create', ['categories' => $categories]);
+        $shops = Shop::all();
+        return view('item.create', ['categories' => $categories, 'shops' => $shops]);
     }
 
     /**
@@ -68,12 +75,15 @@ class ItemController extends Controller
         ]);
 
         try {
-            Item::create([
+            $item = Item::create([
                 'category_id' => $request->category_id,
                 'display_name' => $request->display_name,
                 'sku' => $request->sku,
                 'price' => $request->price,
             ]);
+
+//            item_shopテーブルに保存
+            $item->shops()->sync($request->get('shop_ids', []));
 
             return redirect()->to(route('item.index'))->with('success', $request->display_name . 'を新規作成しました。');
 
@@ -103,7 +113,9 @@ class ItemController extends Controller
     public function edit(Item $item)
     {
         $categories = Category::all();
-        return view('item.edit', ["item" => $item, 'categories' => $categories]);
+        $shops = Shop::all();
+
+        return view('item.edit', ["item" => $item, 'categories' => $categories, 'shops' => $shops]);
     }
 
     /**
@@ -127,6 +139,9 @@ class ItemController extends Controller
             $item->sku = $request->get('sku');
             $item->price = $request->get('price');
             $item->save();
+
+//            item_shopテーブル更新
+            $item->shops()->sync($request->get('shop_ids', []));
 
             return redirect()->to(route('item.index'))->with('info', $item->display_name . 'の登録情報を更新しました。');
         } catch (\Exception $e) {
