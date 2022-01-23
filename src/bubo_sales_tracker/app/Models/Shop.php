@@ -21,6 +21,7 @@ class Shop extends Model
 
     public function items()
     {
+//        return $this->belongsToMany(Item::class)->using(ItemShop::class);
         return $this->belongsToMany(Item::class);
     }
 }

@@ -21,7 +21,8 @@
                                     :price="''"
                                     :currentCategory="''"
                                     submitTitle="作成"
-                                    :categories="$categories">
+                                    :categories="$categories"
+                                    :shops="$shops">
                                 </x-form.item-content>
                             </form>
                         </div>
