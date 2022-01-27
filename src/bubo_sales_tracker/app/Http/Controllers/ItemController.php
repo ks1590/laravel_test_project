@@ -28,7 +28,8 @@ class ItemController extends Controller
                 $items = Shop::find($current_shop->id)->items;
             }
 
-            $stocks = Item::mergeItemAndSmaregiStock($shops, $items);
+//            $stocks = Item::mergeItemAndSmaregiStock($shops, $items);
+            $stocks = 0;
 
             return view('item.index', ['items' => $items, 'shops' => $shops, 'stocks' => $stocks]);
         } catch (\Exception $e) {
