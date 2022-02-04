@@ -63,7 +63,8 @@ class SaleController extends Controller
      */
     public function create()
     {
-        return view('sale.create', ['shops' => Shop::all(), 'items' => Item::orderBy('category_id', 'asc')->orderBy('display_name', 'asc')->get()]);
+        $items = Shop::first()->items;
+        return view('sale.create', ['shops' => Shop::all(), 'items' => $items]);
     }
 
     /**
@@ -111,13 +112,13 @@ class SaleController extends Controller
 
             DB::commit();
 
-            $chatworktitle = 'Bubo Sales Tracker [Store New Sale Created]';
-            $chatworkbody = "Bubo Sales Trackerに新しい売上が保存されました。"
-                . "\n[shop_name] " . $sale->shop->shop_name
-                . "\n[sales_date] " . $sale->date
-                . "\n[total_quantity] " . $sale->totalQuantity()
-                . "\n[total_amount] " . $sale->totalAmount();
-            Chatwork::postToLogRoom($chatworktitle, $chatworkbody);
+//            $chatworktitle = 'Bubo Sales Tracker [Store New Sale Created]';
+//            $chatworkbody = "Bubo Sales Trackerに新しい売上が保存されました。"
+//                . "\n[shop_name] " . $sale->shop->shop_name
+//                . "\n[sales_date] " . $sale->date
+//                . "\n[total_quantity] " . $sale->totalQuantity()
+//                . "\n[total_amount] " . $sale->totalAmount();
+//            Chatwork::postToLogRoom($chatworktitle, $chatworkbody);
 
             return redirect()->to(route('sale.index'))->with('success', $sale->shop->shop_name . 'の売上を入力しました。');
         } catch (\Exception $e) {

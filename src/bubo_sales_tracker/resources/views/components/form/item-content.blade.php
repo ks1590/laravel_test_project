@@ -28,6 +28,16 @@
         type="number"
         :currentValue="$price">
     </x-form.common.input-section>
+    <div class="block">
+        @foreach($shops as $shop)
+            <div class="mt-2">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 border-1 border-gray-400 rounded-md focus:ring-0" name="shop_ids[]" value={{ $shop->id }} {{ $shop->items->find($sku) ? "checked" : ""}}/>
+                    <p class="ml-2">{{ $shop->shop_name }}</p>
+                </label>
+            </div>
+        @endforeach
+    </div>
 </div>
 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
     <x-form.common.submit-button :submitTitle="$submitTitle"></x-form.common.submit-button>

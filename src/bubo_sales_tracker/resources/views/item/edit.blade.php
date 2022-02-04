@@ -22,7 +22,8 @@
                                     :price="$item->price"
                                     :currentCategory="@isset($item->category->name) ? $item->category->name : '-'"
                                     submitTitle="更新"
-                                    :categories="$categories">
+                                    :categories="$categories"
+                                    :shops="$shops">
                                 </x-form.item-content>
                             </form>
                         </div>

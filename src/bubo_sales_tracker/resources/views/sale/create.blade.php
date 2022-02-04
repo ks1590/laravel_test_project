@@ -217,46 +217,11 @@
                 reevaluateAmount();
 
                 $('#add-row').on('click', function () {
-                    let html = `<tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-2 lg:mb-0">
-                                <td class="w-full lg:w-auto p-3 text-gray-800 text-center border-b block lg:table-cell relative lg:static text-sm">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">SKU</span>
-                                    <div>
-                                        <label for="sku" class="block text-sm font-medium text-gray-700"></label>
-                                        <div class="mt-1 flex rounded-md shadow-sm">
-                                            <select id="sku" name="sku[]" required
-                                                    class="sku focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300">
-                                                <option value="">-</option>
-                                                @foreach($items as $item)
-                    <option value="{{ $item->sku }}">{{ $item->display_name . ' (' . $item->sku . ')' }}</option>
-                                                @endforeach
-                    </select>
-                </div>
-            </div>
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border-b block lg:table-cell relative lg:static text-sm">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">単価</span>
-            <input id="price" name="price[]" type="number" readonly
-                   class="price flex-1 block w-full rounded-md bg-gray-200 sm:text-sm border-gray-300 text-right">
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border-b block lg:table-cell relative lg:static text-sm">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">点数</span>
-            <input id="quantity" name="quantity[]" type="number" min="1" required class="quantity focus:ring-blue-500 focus:border-blue-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300 text-right">
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border-b block lg:table-cell relative lg:static text-sm">
-            <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">小計</span>
-            <input id="amount" name="amount[]" type="number" readonly
-                   class="amount flex-1 block w-full rounded-md bg-gray-200 sm:text-sm border-gray-300 text-right">
-        </td>
-        <td class="w-full lg:w-auto p-3 text-gray-800 text-center border-b block lg:table-cell relative lg:static text-sm">
-            <div>
-                <div class="del-row bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-1 px-6 inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </div>
-            </div>
-        </td>
-        </tr>`;
+                    let html = `        <x-header
+            headerTitle="売上入力"
+            buttonTitle="売上一覧"
+            :route="route('sale.index')"
+        ></x-header>`;
                 $('#detailTable').append(html);
                     toggleDeleteButton();
                 });

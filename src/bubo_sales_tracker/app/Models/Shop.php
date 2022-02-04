@@ -18,4 +18,10 @@ class Shop extends Model
     {
         return $this->hasMany(Sale::class);
     }
+
+    public function items()
+    {
+//        return $this->belongsToMany(Item::class)->using(ItemShop::class);
+        return $this->belongsToMany(Item::class);
+    }
 }
